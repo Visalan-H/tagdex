@@ -1,0 +1,92 @@
+@import "@fontsource-variable/bricolage-grotesque/opsz.css";
+@import "@fontsource-variable/jetbrains-mono/wght.css";
+
+:root {
+  color-scheme: light;
+  --paper: oklch(96.5% 0.018 85);
+  --paper-dots: oklch(88% 0.025 85);
+  --ink: oklch(19% 0.02 280);
+  --ink-soft: oklch(38% 0.02 280);
+  --shadow: var(--ink);
+  --card: oklch(99% 0.006 85);
+  --font-display: "Bricolage Grotesque Variable", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, Consolas, monospace;
+  --radius: 10px;
+  --press: 4px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --paper: oklch(20% 0.03 285);
+    --paper-dots: oklch(29% 0.04 285);
+    --ink: oklch(15% 0.02 285);
+    --ink-soft: oklch(80% 0.02 285);
+    --shadow: oklch(8% 0.02 285);
+    --card: oklch(97% 0.008 85);
+  }
+}
+
+/* One bright fill per family. Text on fills is always --ink. */
+[data-family="document"] { --fill: oklch(80% 0.15 25); }
+[data-family="metadata"] { --fill: oklch(85% 0.13 60); }
+[data-family="sectioning"] { --fill: oklch(91% 0.15 100); }
+[data-family="grouping"] { --fill: oklch(87% 0.16 135); }
+[data-family="table"] { --fill: oklch(86% 0.11 170); }
+[data-family="embedded"] { --fill: oklch(84% 0.1 210); }
+[data-family="text"] { --fill: oklch(82% 0.09 255); }
+[data-family="edits"] { --fill: oklch(80% 0.12 285); }
+[data-family="form"] { --fill: oklch(80% 0.13 315); }
+[data-family="interactive"] { --fill: oklch(80% 0.15 350); }
+[data-family="scripting"] { --fill: oklch(75% 0.04 280); }
+[data-family="obsolete"] { --fill: oklch(86% 0.012 85); }
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--paper);
+  background-image: radial-gradient(var(--paper-dots) 1.2px, transparent 1.3px);
+  background-size: 18px 18px;
+  color: var(--ink-soft);
+  font: 16px/1.5 var(--font-display);
+}
+
+a {
+  color: inherit;
+}
+
+code,
+kbd,
+samp,
+pre {
+  font-family: var(--font-mono);
+}
+
+:focus-visible {
+  outline: 3px solid oklch(65% 0.2 260);
+  outline-offset: 3px;
+}
+
+/* Chunky block used by tiles, the preview and the dialog. */
+.block {
+  background: var(--fill, var(--card));
+  color: var(--ink);
+  border: 2.5px solid var(--ink);
+  border-radius: var(--radius);
+  box-shadow: var(--press) var(--press) 0 var(--shadow);
+}
+
+@keyframes drift {
+  from { transform: translateX(100%); }
+  to { transform: translateX(-100%); }
+}
+
+@keyframes blink {
+  50% { opacity: 0.15; }
+}

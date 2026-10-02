@@ -1,0 +1,254 @@
+---
+import type { Placed } from "../lib/layout";
+
+interface Props {
+  placed: Placed;
+}
+
+const { el, row, col } = Astro.props.placed;
+const d = el.data;
+
+// Phrasing elements that are safe inside a link render as themselves.
+const LIVE = new Set([
+  "em", "strong", "small", "s", "cite", "q", "dfn", "abbr", "data", "time", "code", "var", "samp",
+  "kbd", "i", "b", "u", "mark", "bdi", "bdo", "span", "ins", "del",
+]);
+const liveAttrs: Record<string, Record<string, string>> = {
+  abbr: { title: "abbreviation" },
+  bdo: { dir: "rtl" },
+  data: { value: "1" },
+  time: { datetime: "2026-10-02" },
+};
+// Obsolete or non-phrasing tags fake their look with a class.
+const FAKE = new Set(["marquee", "blink", "big", "tt", "strike", "font", "center", "sub", "sup", "nobr"]);
+
+const Live = d.tag as any;
+const tilt = d.family.id === "obsolete" ? ((d.n * 37) % 7) - 3 : 0;
+---
+
+<li
+  class="tile"
+  data-family={d.family.id}
+  style={`grid-row:${row};grid-column:${col};--tilt:${tilt * 0.9}deg`}
+>
+  <a
+    class="block"
+    href={`/elements/${el.id}/`}
+    data-n={d.n}
+    data-symbol={d.symbol}
+    data-tag={d.tag}
+    data-name={d.name}
+    data-summary={d.summary}
+  >
+    <span class="n">{d.n}</span>
+    <span class="mass" title="Atomic mass: element-specific attributes">{d.attrs.length}</span>
+    <span class="symbol">{d.symbol}</span>
+    <span class="label">
+      {LIVE.has(d.tag) ? (
+        <Live {...liveAttrs[d.tag]}>{d.tag}</Live>
+      ) : FAKE.has(d.tag) ? (
+        <span class={`fake fake-${d.tag}`}><span>{d.tag}</span></span>
+      ) : (
+        <code>&lt;{d.tag}&gt;</code>
+      )}
+    </span>
+    {d.void && <span class="void" title="Void element: takes no children" />}
+  </a>
+</li>
+
+<style>
+  .tile {
+    list-style: none;
+  }
+
+  a {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    aspect-ratio: 1 / 1.1;
+    padding: 0.25rem;
+    text-decoration: none;
+    rotate: var(--tilt);
+    transition: transform 140ms cubic-bezier(0.3, 1.6, 0.6, 1), box-shadow 140ms ease, rotate 200ms ease;
+  }
+
+  a:hover,
+  a:focus-visible {
+    z-index: 2;
+    rotate: 0deg;
+    transform: translate(-3px, -3px) scale(1.08);
+    box-shadow: calc(var(--press) + 4px) calc(var(--press) + 4px) 0 var(--shadow);
+  }
+
+  a:active {
+    transform: translate(var(--press), var(--press));
+    box-shadow: 0 0 0 var(--shadow);
+  }
+
+  [data-family="obsolete"] a {
+    border-style: dashed;
+  }
+
+  .n,
+  .mass {
+    position: absolute;
+    top: 0.2rem;
+    font: 600 0.62rem/1 var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .n {
+    left: 0.35rem;
+  }
+
+  .mass {
+    right: 0.35rem;
+    opacity: 0.6;
+  }
+
+  .symbol {
+    font-size: 1.6rem;
+    font-weight: 800;
+    font-variation-settings: "opsz" 96;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-top: 0.45rem;
+  }
+
+  .label {
+    margin-top: 0.3rem;
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    font: 500 0.66rem/1.3 var(--font-mono);
+  }
+
+  .label code {
+    opacity: 0.75;
+    text-overflow: ellipsis;
+  }
+
+  /* Live specimens get a little help to read at tile size. */
+  .label kbd {
+    padding: 0 0.3em;
+    border: 1.5px solid var(--ink);
+    border-bottom-width: 3px;
+    border-radius: 4px;
+    background: var(--card);
+  }
+
+  .label mark {
+    background: oklch(93% 0.2 105);
+    padding: 0 0.15em;
+  }
+
+  .label abbr {
+    text-decoration: underline dotted;
+  }
+
+  .label u {
+    text-decoration: underline wavy oklch(58% 0.22 25);
+  }
+
+  .label ins {
+    background: oklch(90% 0.12 150);
+  }
+
+  .label del {
+    background: oklch(88% 0.08 25);
+  }
+
+  .label strong,
+  .label b {
+    font-weight: 800;
+  }
+
+  .label small {
+    font-size: 0.75em;
+  }
+
+  .fake {
+    display: inline-block;
+  }
+
+  .fake-big {
+    font-size: 1.3em;
+    font-weight: 700;
+  }
+
+  .fake-tt {
+    font-family: "Courier New", monospace;
+  }
+
+  .fake-strike {
+    text-decoration: line-through 2px;
+  }
+
+  .fake-font {
+    font-family: "Comic Sans MS", "Comic Neue", cursive;
+    color: oklch(50% 0.25 330);
+    font-weight: 700;
+  }
+
+  .fake-center {
+    width: 100%;
+    text-align: center;
+    border-inline: 1.5px solid currentColor;
+  }
+
+  .fake-sub span {
+    vertical-align: sub;
+  }
+
+  .fake-sub::before,
+  .fake-sup::before {
+    content: "x";
+  }
+
+  .fake-sup span {
+    vertical-align: super;
+  }
+
+  .fake-nobr span {
+    letter-spacing: 0.12em;
+  }
+
+  .fake-marquee {
+    width: 3.6rem;
+    overflow: hidden;
+  }
+
+  .fake-marquee span {
+    display: inline-block;
+    animation: drift 3s linear infinite;
+  }
+
+  .fake-blink span {
+    animation: blink 1.6s steps(2) infinite;
+  }
+
+  /* A void element has no children, so its badge is an empty ring. */
+  .void {
+    position: absolute;
+    bottom: 0.3rem;
+    right: 0.35rem;
+    width: 0.5rem;
+    height: 0.5rem;
+    border: 1.5px solid var(--ink);
+    border-radius: 50%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    a {
+      transition: none;
+    }
+
+    .fake-marquee span,
+    .fake-blink span {
+      animation: none;
+    }
+  }
+</style>

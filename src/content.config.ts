@@ -8,7 +8,6 @@ const families = defineCollection({
   }),
   schema: z.object({
     label: z.string(),
-    analog: z.string(),
     summary: z.string(),
   }),
 });
