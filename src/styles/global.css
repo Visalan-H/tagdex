@@ -34,19 +34,14 @@
 @layer base {
   :root {
     --hard-shadow: #14182e;
-    --grid-minor: #e2e9f3;
-    --grid-major: #cfdaea;
   }
 
   @media (prefers-color-scheme: dark) {
     :root {
-      --hard-shadow: #06132a;
-      --grid-minor: #15335a;
-      --grid-major: #1f4475;
+      --hard-shadow: #000000;
     }
   }
 
-  /* Light mode is lab graph paper, dark mode is a blueprint. */
   html {
     -webkit-tap-highlight-color: transparent;
   }
@@ -59,16 +54,6 @@
 
   body {
     @apply min-h-screen font-sans antialiased;
-    background-image:
-      linear-gradient(var(--grid-major) 1px, transparent 1px),
-      linear-gradient(90deg, var(--grid-major) 1px, transparent 1px),
-      linear-gradient(var(--grid-minor) 1px, transparent 1px),
-      linear-gradient(90deg, var(--grid-minor) 1px, transparent 1px);
-    background-size:
-      120px 120px,
-      120px 120px,
-      24px 24px,
-      24px 24px;
   }
 
   :focus-visible {
