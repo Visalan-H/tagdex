@@ -36,10 +36,14 @@
     --hard-shadow: #14182e;
   }
 
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --hard-shadow: #000000;
-    }
+  .dark {
+    --hard-shadow: #000000;
+  }
+
+  /* The theme button crossfades the whole page. */
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 250ms;
   }
 
   html {

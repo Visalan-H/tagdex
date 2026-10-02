@@ -59,6 +59,8 @@ src/
   build throws until the heights add up again.
 - **Element numbers follow table order.** They run down each column, left to right. Renumber when you move a family.
 - **One card, two homes.** `SpecimenCard.astro` renders inside the dialog and on `/elements/[tag]/`. Change it once.
+- **Theme is a `.dark` class on `<html>`.** An inline script in `BaseLayout` sets it before paint from the saved
+  choice or the system setting. `src/scripts/theme.ts` runs the toggle button.
 - **Colors come from `data-family`.** Any element with that attribute gets `--fill` for its family.
 - **Obsolete elements fake their look.** Tiles never render a real `<font>` or `<marquee>`, so the page stays valid HTML.
 

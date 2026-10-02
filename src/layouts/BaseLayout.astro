@@ -1,5 +1,6 @@
 ---
 import "@/styles/global.css";
+import ThemeToggle from "@/components/ThemeToggle.astro";
 import displayFont from "@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-opsz-normal.woff2?url";
 
 interface Props {
@@ -16,8 +17,19 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="light dark" />
-    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f2f3f5" />
-    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#17171c" />
+    <meta name="theme-color" content="#f2f3f5" />
+    <!-- Runs before paint so the saved or system theme never flashes the wrong colors. -->
+    <script is:inline>
+      (() => {
+        let saved = null;
+        try {
+          saved = localStorage.getItem("theme");
+        } catch {}
+        const dark = saved ? saved === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.classList.toggle("dark", dark);
+        if (dark) document.querySelector('meta[name="theme-color"]').content = "#17171c";
+      })();
+    </script>
     <link rel="preload" as="font" type="font/woff2" href={displayFont} crossorigin />
     <title>{title}</title>
     <meta name="description" content={description} />
@@ -30,6 +42,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     >
       Skip to content
     </a>
+    <ThemeToggle />
     <slot />
   </body>
 </html>

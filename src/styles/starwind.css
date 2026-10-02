@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @plugin "@tailwindcss/forms";
-@custom-variant dark (@media (prefers-color-scheme: dark));
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
   --animate-accordion-down: accordion-down 0.2s ease-out;
@@ -114,46 +114,44 @@
   --sidebar-outline: var(--color-neutral-400);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #17171c;
-    --foreground: #f1f1f4;
-    --card: #f7f9fc;
-    --card-foreground: #14182e;
-    --popover: #f7f9fc;
-    --popover-foreground: #14182e;
-    --primary: #f1f1f4;
-    --primary-foreground: #17171c;
-    --primary-accent: #f1f1f4;
-    --secondary: #26262e;
-    --secondary-foreground: #f1f1f4;
-    --secondary-accent: var(--color-neutral-50);
-    --muted: #22222a;
-    --muted-foreground: #a4a4b2;
-    --accent: #26262e;
-    --accent-foreground: #f1f1f4;
-    --info: var(--color-sky-300);
-    --info-foreground: var(--color-sky-950);
-    --success: var(--color-green-300);
-    --success-foreground: var(--color-green-950);
-    --warning: var(--color-amber-300);
-    --warning-foreground: var(--color-amber-950);
-    --error: var(--color-red-800);
-    --error-foreground: var(--color-neutral-50);
-    --border: #5c5c6b;
-    --input: #5c5c6b;
-    --outline: #7fb2ff;
+.dark {
+  --background: #17171c;
+  --foreground: #f1f1f4;
+  --card: #f7f9fc;
+  --card-foreground: #14182e;
+  --popover: #f7f9fc;
+  --popover-foreground: #14182e;
+  --primary: #f1f1f4;
+  --primary-foreground: #17171c;
+  --primary-accent: #f1f1f4;
+  --secondary: #26262e;
+  --secondary-foreground: #f1f1f4;
+  --secondary-accent: var(--color-neutral-50);
+  --muted: #22222a;
+  --muted-foreground: #a4a4b2;
+  --accent: #26262e;
+  --accent-foreground: #f1f1f4;
+  --info: var(--color-sky-300);
+  --info-foreground: var(--color-sky-950);
+  --success: var(--color-green-300);
+  --success-foreground: var(--color-green-950);
+  --warning: var(--color-amber-300);
+  --warning-foreground: var(--color-amber-950);
+  --error: var(--color-red-800);
+  --error-foreground: var(--color-neutral-50);
+  --border: #5c5c6b;
+  --input: #5c5c6b;
+  --outline: #7fb2ff;
 
-    /* sidebars variables */
-    --sidebar-background: var(--color-neutral-900);
-    --sidebar-foreground: var(--color-neutral-50);
-    --sidebar-primary: var(--color-blue-700);
-    --sidebar-primary-foreground: var(--color-neutral-50);
-    --sidebar-accent: var(--color-neutral-800);
-    --sidebar-accent-foreground: var(--color-neutral-100);
-    --sidebar-border: var(--color-neutral-800);
-    --sidebar-outline: var(--color-neutral-600);
-  }
+  /* sidebars variables */
+  --sidebar-background: var(--color-neutral-900);
+  --sidebar-foreground: var(--color-neutral-50);
+  --sidebar-primary: var(--color-blue-700);
+  --sidebar-primary-foreground: var(--color-neutral-50);
+  --sidebar-accent: var(--color-neutral-800);
+  --sidebar-accent-foreground: var(--color-neutral-100);
+  --sidebar-border: var(--color-neutral-800);
+  --sidebar-outline: var(--color-neutral-600);
 }
 
 @layer base {
