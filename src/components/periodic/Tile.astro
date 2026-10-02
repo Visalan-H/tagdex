@@ -1,0 +1,182 @@
+---
+import type { Placed } from "@/lib/periodic-layout";
+
+interface Props {
+  placed: Placed;
+}
+
+const { el, row, col, boardRow } = Astro.props.placed;
+const d = el.data;
+
+// Phrasing elements that are valid inside a link render as themselves.
+const LIVE = new Set([
+  "em",
+  "strong",
+  "small",
+  "s",
+  "cite",
+  "q",
+  "dfn",
+  "abbr",
+  "data",
+  "time",
+  "code",
+  "var",
+  "samp",
+  "kbd",
+  "i",
+  "b",
+  "u",
+  "mark",
+  "bdi",
+  "bdo",
+  "span",
+  "ins",
+  "del",
+  "sub",
+  "sup",
+]);
+const LIVE_ATTRS: Record<string, Record<string, string>> = {
+  abbr: { title: "abbreviation" },
+  bdo: { dir: "rtl" },
+  data: { value: "1" },
+  time: { datetime: "2026-10-02" },
+};
+// Obsolete tags would make the page invalid, so they fake their look.
+const FAKE = new Set(["marquee", "blink", "big", "tt", "strike", "font", "center", "nobr"]);
+
+const Live = d.tag as any;
+const isFossil = d.family.id === "obsolete";
+const tilt = isFossil ? (((d.n * 37) % 7) - 3) * 0.9 : 0;
+---
+
+<li
+  class="group/tile list-none transition-[opacity,filter] duration-200 data-dimmed:opacity-15 data-dimmed:grayscale"
+  data-family={d.family.id}
+  data-tag={d.tag}
+  data-n={d.n}
+  data-symbol={d.symbol}
+  data-name={d.name}
+  data-summary={d.summary}
+  data-row={boardRow}
+  data-col={col}
+  data-search={`${d.tag} ${d.name} ${d.symbol}`.toLowerCase()}
+  style={`grid-row:${row};grid-column:${col};--tilt:${tilt}deg`}
+>
+  <a
+    href={`/elements/${el.id}/`}
+    data-tile
+    aria-label={`${d.name}, ${d.tag} element, number ${d.n}${d.void ? ", void" : ""}`}
+    class:list={[
+      "relative flex aspect-[1/1.1] w-full flex-col items-center justify-center rounded-lg p-1",
+      "border-[2.5px] border-ink bg-(--fill) text-ink no-underline shadow-hard rotate-(--tilt)",
+      "transition-[translate,scale,rotate,box-shadow] duration-150 ease-[cubic-bezier(.3,1.6,.6,1)]",
+      "hover:z-10 hover:-translate-1 hover:scale-108 hover:rotate-0 hover:shadow-hard-lg",
+      "focus-visible:z-10 focus-visible:-translate-1 focus-visible:scale-108 focus-visible:rotate-0 focus-visible:shadow-hard-lg",
+      "active:translate-1 active:shadow-none motion-reduce:transition-none",
+      isFossil && "border-dashed",
+    ]}
+  >
+    <span class="absolute top-1 left-1.5 text-[0.62rem] leading-none font-semibold tabular-nums">{d.n}</span>
+    <span class="absolute top-1 right-1.5 text-[0.62rem] leading-none tabular-nums opacity-60">{d.attrs.length}</span>
+    <span translate="no" class="mt-2 text-[1.6rem] leading-none font-extrabold tracking-tight">
+      {d.symbol}
+    </span>
+    <span
+      translate="no"
+      class="specimen-label mt-1 max-w-full overflow-hidden font-mono text-[0.66rem] leading-snug whitespace-nowrap"
+    >
+      {LIVE.has(d.tag) ? (
+        <Live {...LIVE_ATTRS[d.tag]}>{d.tag}</Live>
+      ) : FAKE.has(d.tag) ? (
+        <span class={`fake fake-${d.tag}`}>
+          <span>{d.tag}</span>
+        </span>
+      ) : (
+        <code class="opacity-75">&lt;{d.tag}&gt;</code>
+      )}
+    </span>
+    {d.void && (
+      <span class="absolute top-1.5 left-1/2 size-2 -translate-x-1/2 rounded-full border-[1.5px] border-ink" />
+    )}
+  </a>
+</li>
+
+<style>
+  /* Each live label gets a nudge so it still reads at tile size. */
+  .specimen-label :global(kbd) {
+    padding: 0 0.3em;
+    border: 1.5px solid var(--color-ink);
+    border-bottom-width: 3px;
+    border-radius: 4px;
+    background: white;
+  }
+  .specimen-label :global(mark) {
+    background: oklch(93% 0.2 105);
+    padding: 0 0.15em;
+  }
+  .specimen-label :global(abbr) {
+    text-decoration: underline dotted;
+  }
+  .specimen-label :global(u) {
+    text-decoration: underline wavy oklch(58% 0.22 25);
+  }
+  .specimen-label :global(ins) {
+    background: oklch(90% 0.12 150);
+  }
+  .specimen-label :global(del) {
+    background: oklch(88% 0.08 25);
+  }
+  .specimen-label :global(strong),
+  .specimen-label :global(b) {
+    font-weight: 800;
+  }
+  .specimen-label :global(small) {
+    font-size: 0.75em;
+  }
+
+  .fake {
+    display: inline-block;
+  }
+  .fake-big {
+    font-size: 1.3em;
+    font-weight: 700;
+  }
+  .fake-tt {
+    font-family: "Courier New", monospace;
+  }
+  .fake-strike {
+    text-decoration: line-through 2px;
+  }
+  .fake-font {
+    font-family: "Comic Sans MS", "Comic Neue", cursive;
+    font-weight: 700;
+    color: oklch(50% 0.25 330);
+  }
+  .fake-center {
+    width: 100%;
+    text-align: center;
+    border-inline: 1.5px solid currentColor;
+  }
+  .fake-nobr span {
+    letter-spacing: 0.12em;
+  }
+  .fake-marquee {
+    width: 3.6rem;
+    overflow: hidden;
+  }
+  .fake-marquee span {
+    display: inline-block;
+    animation: drift 3s linear infinite;
+  }
+  .fake-blink span {
+    animation: blink 1.6s steps(2) infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fake-marquee span,
+    .fake-blink span {
+      animation: none;
+    }
+  }
+</style>

@@ -1,0 +1,30 @@
+---
+import { ToggleGroup, ToggleGroupItem } from "@/components/starwind/toggle-group";
+import type { FamilyEntry } from "@/lib/elements";
+
+interface Props {
+  families: FamilyEntry[];
+}
+
+const { families } = Astro.props;
+---
+
+<ToggleGroup
+  data-family-filter
+  variant="outline"
+  size="sm"
+  aria-label="Highlight one family"
+  class="-mx-4 w-auto max-w-none flex-nowrap overflow-x-auto px-4 py-1 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0"
+>
+  {families.map((f) => (
+    <ToggleGroupItem
+      value={f.id}
+      data-family={f.id}
+      title={f.data.summary}
+      class="h-8 rounded-full border-2 border-ink! bg-(--fill)! px-3 text-sm font-semibold text-ink! shadow-hard-sm transition-[translate,box-shadow] hover:-translate-px hover:bg-(--fill) hover:text-ink hover:shadow-hard data-[state=on]:translate-0.5 data-[state=on]:bg-(--fill) data-[state=on]:text-ink data-[state=on]:shadow-none data-[state=on]:ring-2 data-[state=on]:ring-foreground data-[state=on]:ring-offset-2 data-[state=on]:ring-offset-background"
+    >
+      <span class="size-2 rounded-full bg-ink" aria-hidden="true" />
+      {f.data.label}
+    </ToggleGroupItem>
+  ))}
+</ToggleGroup>

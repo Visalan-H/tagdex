@@ -12,3 +12,9 @@ build/
 *.zip
 *.iso
 .astro/
+
+# Local tooling
+.claude/
+.vscode/
+CLAUDE.md
+AGENTS.md

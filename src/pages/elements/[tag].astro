@@ -1,31 +1,66 @@
 ---
-import { getCollection, getEntry } from "astro:content";
-import Base from "../../layouts/Base.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import SpecimenCard from "@/components/specimen/SpecimenCard.astro";
+import { getElements, getFamilies, type ElementEntry } from "@/lib/elements";
 
 export async function getStaticPaths() {
-  const elements = await getCollection("elements");
-  return elements.map((el) => ({ params: { tag: el.id }, props: { el } }));
+  const elements = await getElements();
+  const families = await getFamilies(elements);
+  const labels = Object.fromEntries(families.map((f) => [f.id, f.data.label]));
+  return elements.map((el, i) => ({
+    params: { tag: el.id },
+    props: {
+      element: el,
+      familyLabel: labels[el.data.family.id],
+      prev: elements[i - 1] ?? null,
+      next: elements[i + 1] ?? null,
+    },
+  }));
 }
 
-const { el } = Astro.props;
-const family = await getEntry(el.data.family);
+interface Props {
+  element: ElementEntry;
+  familyLabel: string;
+  prev: ElementEntry | null;
+  next: ElementEntry | null;
+}
+
+const { element, familyLabel, prev, next } = Astro.props;
+const d = element.data;
+const neighbor = (el: ElementEntry) => `${el.data.n}. <${el.data.tag}>`;
 ---
 
-<Base title={`<${el.data.tag}> ${el.data.name} | Tagdex`} description={el.data.summary}>
-  <main>
-    <p><a href="/">Back to the table</a></p>
-    <h1><code>&lt;{el.data.tag}&gt;</code> {el.data.name}</h1>
-    <p>{el.data.summary}</p>
-    <p>{el.data.tip}</p>
-    <dl>
-      <dt>Number</dt><dd>{el.data.n}</dd>
-      <dt>Symbol</dt><dd>{el.data.symbol}</dd>
-      <dt>Family</dt><dd>{family?.data.label}</dd>
-      <dt>Since</dt><dd>{el.data.since}</dd>
-      <dt>Implicit role</dt><dd>{el.data.role ?? "None"}</dd>
-      <dt>Void</dt><dd>{el.data.void ? "Yes" : "No"}</dd>
-      {el.data.replacement && <><dt>Use instead</dt><dd>{el.data.replacement}</dd></>}
-      <dt>Attributes</dt><dd>{el.data.attrs.length ? el.data.attrs.join(", ") : "Global attributes only"}</dd>
-    </dl>
-  </main>
-</Base>
+<BaseLayout title={`<${d.tag}> ${d.name} | Tagdex`} description={d.summary}>
+  <div class="mx-auto max-w-2xl px-4 py-8">
+    <nav aria-label="Breadcrumb" class="mb-5">
+      <a href={`/#${element.id}`} class="font-bold underline decoration-2 underline-offset-4">
+        Back to the table
+      </a>
+    </nav>
+
+    <main id="content" class="overflow-hidden rounded-2xl border-[2.5px] border-ink bg-card shadow-hard-xl">
+      <SpecimenCard element={element} familyLabel={familyLabel} headingLevel="h1" showPageLink={false} />
+    </main>
+
+    <nav aria-label="Neighboring elements" class="mt-8 flex justify-between gap-4 font-semibold">
+      {prev ? (
+        <a href={`/elements/${prev.id}/`} rel="prev" class="underline underline-offset-4">
+          Previous: {neighbor(prev)}
+        </a>
+      ) : (
+        <span />
+      )}
+      {next && (
+        <a href={`/elements/${next.id}/`} rel="next" class="underline underline-offset-4">
+          Next: {neighbor(next)}
+        </a>
+      )}
+    </nav>
+  </div>
+</BaseLayout>
+
+<script>
+  import { drawSpecimens } from "@/scripts/draw-specimens";
+
+  drawSpecimens(document);
+</script>

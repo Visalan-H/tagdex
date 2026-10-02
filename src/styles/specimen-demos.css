@@ -1,0 +1,392 @@
+/* Demo HTML is hand-written in specimen-demos.ts, so these selectors are global. */
+.specimen-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 9rem;
+  padding: 1.4rem 1rem 1rem;
+  overflow-x: auto;
+  color: var(--color-ink);
+  font-family: system-ui, sans-serif;
+}
+
+.specimen-stage > * {
+  max-width: 100%;
+}
+
+.specimen-stage p {
+  margin: 0;
+}
+
+.specimen-stage .d-code {
+  margin: 0;
+  padding: 0.75rem 1rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: oklch(93% 0.01 285);
+  background: oklch(22% 0.03 285);
+  border-radius: 8px;
+  overflow-x: auto;
+  align-self: stretch;
+}
+
+.specimen-stage .d-h {
+  margin: 0;
+}
+
+.specimen-stage .d-big {
+  font-size: 2.2rem;
+}
+
+.specimen-stage .d-ruby {
+  font-size: 2.6rem;
+}
+
+.specimen-stage .d-pre {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.specimen-stage blockquote {
+  margin: 0;
+  font-size: 1.2rem;
+  font-style: italic;
+}
+
+.specimen-stage figure {
+  margin: 0;
+  text-align: center;
+}
+
+.specimen-stage figcaption {
+  font-size: 0.85rem;
+}
+
+.specimen-stage .d-dl {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 0.25rem 1rem;
+  margin: 0;
+}
+
+.specimen-stage .d-dl dt {
+  font-weight: 700;
+}
+
+.specimen-stage .d-dl dd {
+  margin: 0;
+}
+
+.specimen-stage .d-divs,
+.specimen-stage .d-divs div {
+  padding: 0.4rem 0.6rem;
+  margin: 0.25rem;
+  border: 2px dashed oklch(55% 0.15 135);
+  border-radius: 6px;
+  font: 0.75rem var(--font-mono);
+}
+
+.specimen-stage .d-iframe {
+  width: 100%;
+  height: 6rem;
+  border: 2px solid currentColor;
+  border-radius: 6px;
+  background: white;
+}
+
+.specimen-stage .d-math {
+  font-size: 2.4rem;
+}
+
+.specimen-stage mark {
+  background: oklch(93% 0.2 105);
+}
+
+.specimen-stage kbd kbd {
+  padding: 0.1em 0.45em;
+  border: 1.5px solid currentColor;
+  border-bottom-width: 3px;
+  border-radius: 5px;
+  background: white;
+}
+
+.specimen-stage .d-squiggle {
+  text-decoration: underline wavy oklch(58% 0.22 25);
+}
+
+.specimen-stage .d-span {
+  padding: 0 0.3em;
+  background: oklch(88% 0.1 255);
+  border-radius: 4px;
+}
+
+.specimen-stage .d-narrow {
+  width: 9rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  border: 1.5px dashed currentColor;
+  padding: 0.4rem;
+}
+
+.specimen-stage ins {
+  background: oklch(90% 0.12 150);
+}
+
+.specimen-stage del {
+  background: oklch(88% 0.08 25);
+}
+
+.specimen-stage .d-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.specimen-stage .d-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: stretch;
+}
+
+.specimen-stage input,
+.specimen-stage select,
+.specimen-stage textarea,
+.specimen-stage button {
+  font: inherit;
+}
+
+.specimen-stage input[type="number"] {
+  width: 4rem;
+}
+
+.specimen-stage .d-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: end;
+}
+
+.specimen-stage .d-form label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.85rem;
+}
+
+.specimen-stage .d-press {
+  padding: 0.6rem 1.2rem;
+  font-weight: 700;
+  border: 2.5px solid currentColor;
+  border-radius: 999px;
+  background: oklch(85% 0.15 350);
+  box-shadow: 3px 3px 0 currentColor;
+  cursor: pointer;
+}
+
+.specimen-stage .d-press:active {
+  transform: translate(3px, 3px);
+  box-shadow: none;
+}
+
+.specimen-stage .d-textarea {
+  field-sizing: content;
+  min-width: 14rem;
+}
+
+.specimen-stage .d-menu {
+  display: flex;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.specimen-stage .d-details {
+  align-self: stretch;
+  padding: 0.4rem 0.75rem;
+  border: 2px solid currentColor;
+  border-radius: 8px;
+  background: white;
+}
+
+.specimen-stage .d-details summary {
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.specimen-stage .d-dialog-wrap {
+  position: relative;
+  width: 100%;
+  min-height: 7rem;
+}
+
+.specimen-stage .d-dialog {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  height: fit-content;
+  border: 2.5px solid currentColor;
+  border-radius: 10px;
+  box-shadow: 4px 4px 0 currentColor;
+}
+
+.specimen-stage .d-canvas {
+  border: 2px solid currentColor;
+  border-radius: 6px;
+  background: white;
+}
+
+.specimen-stage .d-landmarks {
+  display: grid;
+  gap: 4px;
+  width: 100%;
+  max-width: 22rem;
+  font: 600 0.7rem var(--font-mono);
+}
+
+.specimen-stage .lm {
+  padding: 0.3rem 0.45rem;
+  border: 1.5px dashed oklch(60% 0.02 285);
+  border-radius: 5px;
+  color: oklch(55% 0.02 285);
+}
+
+.specimen-stage .lm.is-on {
+  color: var(--color-ink);
+  background: oklch(91% 0.15 100);
+  border: 2.5px solid var(--color-ink);
+}
+
+.specimen-stage .lm-row {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  gap: 4px;
+}
+
+.specimen-stage .lm-main {
+  display: grid;
+  gap: 4px;
+  min-height: 6rem;
+}
+
+.specimen-stage .lm-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+}
+
+.specimen-stage .d-table {
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.specimen-stage .d-table caption {
+  padding-bottom: 0.3rem;
+  font-weight: 700;
+}
+
+.specimen-stage .d-table th,
+.specimen-stage .d-table td {
+  padding: 0.3rem 0.8rem;
+  border: 1.5px solid currentColor;
+  text-align: left;
+}
+
+.specimen-stage .d-table .is-on,
+.specimen-stage .d-table .is-on > * > *,
+.specimen-stage .d-table .is-on > * {
+  background: oklch(86% 0.11 170);
+}
+
+.specimen-stage .d-table caption.is-on {
+  outline: 2.5px solid currentColor;
+  border-radius: 4px;
+}
+
+.specimen-stage .d-tab {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.9rem;
+  font-size: 0.85rem;
+  background: white;
+  border: 2px solid currentColor;
+  border-bottom: none;
+  border-radius: 10px 10px 0 0;
+}
+
+.specimen-stage .d-tab-dot {
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 3px;
+  background: oklch(80% 0.15 350);
+}
+
+.specimen-stage .d-tab-x {
+  margin-left: 0.75rem;
+  opacity: 0.5;
+}
+
+.specimen-stage .d-marquee {
+  width: 100%;
+  overflow: hidden;
+  padding: 0.4rem 0;
+  font:
+    700 1.1rem "Comic Sans MS",
+    "Comic Neue",
+    cursive;
+  color: oklch(50% 0.25 145);
+  background: black;
+}
+
+.specimen-stage .d-marquee span {
+  display: inline-block;
+  white-space: nowrap;
+  animation: drift 6s linear infinite;
+}
+
+.specimen-stage .d-blink {
+  font:
+    900 2rem "Comic Sans MS",
+    cursive;
+  color: oklch(60% 0.25 25);
+  animation: blink 1.6s steps(2) infinite;
+}
+
+.specimen-stage .d-font {
+  font:
+    700 1.6rem "Comic Sans MS",
+    "Comic Neue",
+    cursive;
+  color: oklch(55% 0.25 330);
+}
+
+.specimen-stage .d-frames {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  width: 100%;
+  min-height: 6rem;
+  border: 3px ridge oklch(70% 0 0);
+  font:
+    0.8rem "Times New Roman",
+    serif;
+}
+
+.specimen-stage .d-frames div {
+  padding: 0.4rem;
+  border: 3px ridge oklch(70% 0 0);
+  background: oklch(92% 0 0);
+}
+
+.specimen-stage .d-retired {
+  font-size: 1.1rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .specimen-stage .d-marquee span,
+  .specimen-stage .d-blink {
+    animation: none;
+  }
+}

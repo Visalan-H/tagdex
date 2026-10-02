@@ -53,8 +53,12 @@ export const DEMOS: Record<string, string> = {
   body: code(`<body>\n  <h1>Everything you see lives here</h1>\n</body>`),
   title: `<div class="d-tab"><span class="d-tab-dot"></span>Tagdex | Every HTML element<span class="d-tab-x">×</span></div>`,
   base: code(`<base href="https://tagdex.visalan.me/">\n<a href="elements/div/">resolves against base</a>`),
-  link: code(`<link rel="stylesheet" href="/styles.css">\n<link rel="icon" href="/favicon.svg">\n<link rel="preload" as="font" href="/font.woff2" crossorigin>`),
-  meta: code(`<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n<meta name="description" content="Every HTML element.">`),
+  link: code(
+    `<link rel="stylesheet" href="/styles.css">\n<link rel="icon" href="/favicon.svg">\n<link rel="preload" as="font" href="/font.woff2" crossorigin>`,
+  ),
+  meta: code(
+    `<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n<meta name="description" content="Every HTML element.">`,
+  ),
   style: `<style>.d-styled { color: oklch(55% 0.25 330); font-weight: 800; }</style><p class="d-styled">This text is styled by a style element inside the demo.</p>`,
 
   h1: `<h1 class="d-h">Heading 1</h1>`,
@@ -91,9 +95,15 @@ export const DEMOS: Record<string, string> = {
   object: `<object data="${ATOM_URL}" type="image/svg+xml" width="100" height="100">Fallback text</object>`,
   video: `<video controls width="260" poster="${ATOM_URL}" aria-label="Video player with no source"></video>`,
   audio: `<audio controls aria-label="Audio player with no source"></audio>`,
-  track: code(`<video src="talk.mp4" controls>\n  <track kind="captions" src="talk.vtt"\n         srclang="en" label="English" default>\n</video>`),
-  map: code(`<img src="planets.png" usemap="#planets" alt="Planets">\n<map name="planets">\n  <area shape="circle" coords="90,58,3"\n        href="mercury.html" alt="Mercury">\n</map>`),
-  area: code(`<map name="planets">\n  <area shape="rect" coords="0,0,82,126"\n        href="sun.html" alt="Sun">\n</map>`),
+  track: code(
+    `<video src="talk.mp4" controls>\n  <track kind="captions" src="talk.vtt"\n         srclang="en" label="English" default>\n</video>`,
+  ),
+  map: code(
+    `<img src="planets.png" usemap="#planets" alt="Planets">\n<map name="planets">\n  <area shape="circle" coords="90,58,3"\n        href="mercury.html" alt="Mercury">\n</map>`,
+  ),
+  area: code(
+    `<map name="planets">\n  <area shape="rect" coords="0,0,82,126"\n        href="sun.html" alt="Sun">\n</map>`,
+  ),
   svg: ATOM,
   math: `<math display="block" class="d-math"><mi>E</mi><mo>=</mo><mi>m</mi><msup><mi>c</mi><mn>2</mn></msup></math>`,
 
@@ -143,7 +153,9 @@ export const DEMOS: Record<string, string> = {
   meter: `<div class="d-stack"><label>Disk <meter value="0.3" low="0.6" high="0.85" optimum="0.1">30%</meter></label><label>Disk <meter value="0.92" low="0.6" high="0.85" optimum="0.1">92%</meter></label></div>`,
   fieldset: `<fieldset><legend>Favorite element</legend><label class="d-row"><input type="radio" name="fav" checked> div</label><label class="d-row"><input type="radio" name="fav"> dialog</label></fieldset>`,
   legend: `<fieldset><legend>I am the legend</legend><label class="d-row"><input type="checkbox"> Option</label></fieldset>`,
-  selectedcontent: code(`<select>\n  <button><selectedcontent></selectedcontent></button>\n  <option>🍎 Apple</option>\n  <option>🍌 Banana</option>\n</select>`),
+  selectedcontent: code(
+    `<select>\n  <button><selectedcontent></selectedcontent></button>\n  <option>🍎 Apple</option>\n  <option>🍌 Banana</option>\n</select>`,
+  ),
 
   details: `<details class="d-details" open><summary>What is a void element?</summary><p>One that takes no children, like br or img.</p></details><details class="d-details"><summary>Click me too</summary><p>Hello.</p></details>`,
   summary: `<details class="d-details"><summary>I am the summary. Click me.</summary><p>Peekaboo.</p></details>`,
@@ -151,7 +163,9 @@ export const DEMOS: Record<string, string> = {
 
   script: code(`<script type="module">\n  document.title = "Hello";\n</script>`),
   noscript: code(`<noscript>\n  This site works better with JavaScript.\n</noscript>`),
-  template: code(`<template id="row">\n  <li class="item"></li>\n</template>\n<script>\n  const li = row.content.cloneNode(true);\n</script>`),
+  template: code(
+    `<template id="row">\n  <li class="item"></li>\n</template>\n<script>\n  const li = row.content.cloneNode(true);\n</script>`,
+  ),
   slot: code(`<!-- inside a web component's shadow root -->\n<h2><slot name="title">Default title</slot></h2>`),
   canvas: `<canvas class="d-canvas" width="240" height="90" aria-label="Drawn circles" data-draw></canvas>`,
 

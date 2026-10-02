@@ -1,0 +1,28 @@
+---
+import SpecimenCard from "./SpecimenCard.astro";
+import { Dialog, DialogContent } from "@/components/starwind/dialog";
+import type { ElementEntry } from "@/lib/elements";
+
+interface Props {
+  elements: ElementEntry[];
+  familyLabels: Record<string, string>;
+}
+
+const { elements, familyLabels } = Astro.props;
+---
+
+<Dialog id="specimen-dialog">
+  <DialogContent
+    data-specimen-popup
+    class="max-h-[calc(100dvh-2rem)] w-[min(40rem,calc(100vw-2rem))] max-w-none overflow-y-auto overscroll-contain rounded-2xl border-[2.5px] border-ink bg-card p-0 shadow-hard-xl motion-reduce:animate-none"
+  >
+    <div data-specimen-slot></div>
+  </DialogContent>
+</Dialog>
+
+<!-- One inert card per element. The dialog clones the one it needs. -->
+{elements.map((el) => (
+  <template id={`specimen-${el.id}`}>
+    <SpecimenCard element={el} familyLabel={familyLabels[el.data.family.id]} />
+  </template>
+))}

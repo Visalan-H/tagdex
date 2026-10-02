@@ -1,0 +1,35 @@
+---
+import "@/styles/global.css";
+import displayFont from "@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-opsz-normal.woff2?url";
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+
+<html lang="en" class="scheme-light dark:scheme-dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f5f8fc" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0f2747" />
+    <link rel="preload" as="font" type="font/woff2" href={displayFont} crossorigin />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+  </head>
+  <body>
+    <a
+      href="#content"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:rounded-md focus:bg-card focus:px-3 focus:py-2 focus:text-card-foreground"
+    >
+      Skip to content
+    </a>
+    <slot />
+  </body>
+</html>

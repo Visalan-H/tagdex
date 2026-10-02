@@ -1,0 +1,44 @@
+{
+  "source": "HTTP Archive Web Almanac 2024, Markup chapter",
+  "url": "https://almanac.httparchive.org/en/2024/markup",
+  "client": "mobile",
+  "shareOfAllElements": {
+    "note": "Share of all element occurrences across pages. Figure 2.14.",
+    "values": {
+      "div": 28.7,
+      "a": 12.6,
+      "span": 11.2,
+      "li": 7.7,
+      "script": 3.9,
+      "img": 3.3,
+      "p": 3.2,
+      "link": 2.8,
+      "meta": 2.5,
+      "i": 1.9,
+      "option": 1.6,
+      "ul": 1.5,
+      "br": 1.4,
+      "td": 1.3
+    }
+  },
+  "pageAdoption": {
+    "note": "Percent of pages that use the element at least once. Figures 2.15 and 2.19.",
+    "values": {
+      "html": 99.8,
+      "head": 99.8,
+      "body": 99.7,
+      "meta": 99.2,
+      "title": 99.1,
+      "font": 4.5,
+      "center": 4.5,
+      "marquee": 0.9,
+      "nobr": 0.8,
+      "big": 0.4,
+      "param": 0.3,
+      "strike": 0.2,
+      "frame": 0.2,
+      "frameset": 0.1,
+      "noframes": 0.1
+    }
+  }
+}

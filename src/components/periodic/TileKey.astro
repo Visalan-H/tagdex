@@ -1,0 +1,65 @@
+---
+import { Kbd, KbdGroup } from "@/components/starwind/kbd";
+import type { ElementEntry } from "@/lib/elements";
+
+interface Props {
+  sample: ElementEntry;
+}
+
+const d = Astro.props.sample.data;
+---
+
+<section aria-labelledby="key-title" class="py-12">
+  <h2 id="key-title" class="mb-5 text-2xl text-balance font-extrabold tracking-tight">
+    How to read a tile
+  </h2>
+  <div class="flex flex-wrap items-center gap-x-10 gap-y-6">
+    <div
+      data-family={d.family.id}
+      aria-hidden="true"
+      class="relative flex aspect-[1/1.1] w-32 -rotate-3 flex-col items-center justify-center rounded-xl border-[2.5px] border-ink bg-(--fill) text-ink shadow-hard"
+    >
+      <span class="absolute top-2 left-2.5 text-sm font-semibold tabular-nums">{d.n}</span>
+      <span class="absolute top-2 right-2.5 text-sm tabular-nums opacity-60">{d.attrs.length}</span>
+      <span class="text-5xl leading-none font-extrabold">{d.symbol}</span>
+      <code class="mt-1 font-mono text-sm">&lt;{d.tag}&gt;</code>
+      <span class="absolute top-2.5 left-1/2 size-3 -translate-x-1/2 rounded-full border-2 border-ink"></span>
+    </div>
+    <div class="max-w-xl flex-1 basis-80">
+      <ul class="grid list-disc gap-1.5 pl-5 marker:text-muted-foreground">
+        <li>
+          <strong class="font-extrabold">Top left</strong> is the element's number. Numbers run down each column.
+        </li>
+        <li>
+          <strong class="font-extrabold">Top right</strong> is atomic mass, the count of attributes only that element
+          accepts.
+        </li>
+        <li>
+          <strong class="font-extrabold">The big letters</strong> are its symbol. The label under them is often the
+          element itself, rendered live.
+        </li>
+        <li>
+          <strong class="font-extrabold">A small ring</strong> marks a void element. Like a noble gas, it bonds with
+          nothing.
+        </li>
+        <li>
+          <strong class="font-extrabold">Each column</strong> is one family, so neighbors behave alike.
+        </li>
+      </ul>
+      <p class="mt-4 flex flex-wrap items-center gap-1.5 text-muted-foreground">
+        <KbdGroup>
+          <Kbd>/</Kbd>
+        </KbdGroup>{" "}
+        searches,
+        <KbdGroup>
+          <Kbd>←</Kbd>
+          <Kbd>↑</Kbd>
+          <Kbd>↓</Kbd>
+          <Kbd>→</Kbd>
+        </KbdGroup>{" "}
+        move between tiles,
+        <Kbd>Enter</Kbd> opens one, and <Kbd>Esc</Kbd> closes it.
+      </p>
+    </div>
+  </div>
+</section>

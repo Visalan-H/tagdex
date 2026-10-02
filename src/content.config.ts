@@ -3,7 +3,7 @@ import { file } from "astro/loaders";
 import { z } from "astro/zod";
 
 const families = defineCollection({
-  loader: file("data/elements.json", {
+  loader: file("src/data/elements.json", {
     parser: (text) => JSON.parse(text).families,
   }),
   schema: z.object({
@@ -13,9 +13,8 @@ const families = defineCollection({
 });
 
 const elements = defineCollection({
-  loader: file("data/elements.json", {
-    parser: (text) =>
-      JSON.parse(text).elements.map((el: { tag: string }) => ({ id: el.tag, ...el })),
+  loader: file("src/data/elements.json", {
+    parser: (text) => JSON.parse(text).elements.map((el: { tag: string }) => ({ id: el.tag, ...el })),
   }),
   schema: z.object({
     n: z.number().int().positive(),

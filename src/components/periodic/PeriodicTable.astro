@@ -1,0 +1,46 @@
+---
+import Tile from "./Tile.astro";
+import TilePreview from "./TilePreview.astro";
+import { COLUMNS, ROWS, placeFBlock, placeMain } from "@/lib/periodic-layout";
+import type { ElementEntry } from "@/lib/elements";
+
+interface Props {
+  elements: ElementEntry[];
+  featured: ElementEntry;
+}
+
+const { elements, featured } = Astro.props;
+const main = placeMain(elements);
+const fBlock = placeFBlock(elements);
+---
+
+<div class="-mx-4 overflow-x-auto px-4 pt-3 pb-6">
+  <div
+    data-board
+    class="grid min-w-[calc(var(--cols)*3.9rem)] grid-cols-[repeat(var(--cols),minmax(3.6rem,1fr))] grid-rows-[repeat(var(--rows),auto)_2rem_auto_auto] gap-1.5"
+    style={`--cols:${COLUMNS};--rows:${ROWS}`}
+  >
+    <ol
+      aria-label="Living HTML elements"
+      class="col-span-full row-[1/span_var(--rows)] m-0 grid grid-cols-subgrid grid-rows-subgrid p-0"
+    >
+      {main.map((placed) => (
+        <Tile placed={placed} />
+      ))}
+    </ol>
+
+    <TilePreview element={featured} />
+
+    <h2 class="col-start-1 row-[calc(var(--rows)+2)/span_2] rotate-180 self-center justify-self-center text-lg font-extrabold [writing-mode:vertical-rl]">
+      Fossils
+    </h2>
+    <ol
+      aria-label="Obsolete HTML elements"
+      class="col-span-full row-[calc(var(--rows)+2)/span_2] m-0 grid grid-cols-subgrid grid-rows-subgrid p-0"
+    >
+      {fBlock.map((placed) => (
+        <Tile placed={placed} />
+      ))}
+    </ol>
+  </div>
+</div>
