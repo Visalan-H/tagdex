@@ -1,0 +1,38 @@
+---
+import { getCollection, getEntry } from "astro:content";
+
+export async function getStaticPaths() {
+  const elements = await getCollection("elements");
+  return elements.map((el) => ({ params: { tag: el.id }, props: { el } }));
+}
+
+const { el } = Astro.props;
+const family = await getEntry(el.data.family);
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>&lt;{el.data.tag}&gt; {el.data.name} | Periodic Table of HTML</title>
+    <meta name="description" content={el.data.summary} />
+  </head>
+  <body>
+    <main>
+      <p><a href="/">Back to the table</a></p>
+      <h1><code>&lt;{el.data.tag}&gt;</code> {el.data.name}</h1>
+      <p>{el.data.summary}</p>
+      <p>{el.data.tip}</p>
+      <dl>
+        <dt>Number</dt><dd>{el.data.n}</dd>
+        <dt>Symbol</dt><dd>{el.data.symbol}</dd>
+        <dt>Family</dt><dd>{family?.data.label}</dd>
+        <dt>Since</dt><dd>{el.data.since}</dd>
+        <dt>Implicit role</dt><dd>{el.data.role ?? "None"}</dd>
+        <dt>Void</dt><dd>{el.data.void ? "Yes" : "No"}</dd>
+        {el.data.replacement && <><dt>Use instead</dt><dd>{el.data.replacement}</dd></>}
+        <dt>Attributes</dt><dd>{el.data.attrs.length ? el.data.attrs.join(", ") : "Global attributes only"}</dd>
+      </dl>
+    </main>
+  </body>
+</html>

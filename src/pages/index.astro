@@ -1,0 +1,25 @@
+---
+import { getCollection } from "astro:content";
+
+const elements = (await getCollection("elements")).sort((a, b) => a.data.n - b.data.n);
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Periodic Table of HTML</title>
+  </head>
+  <body>
+    <main>
+      <h1>Periodic Table of HTML</h1>
+      <ol>
+        {elements.map((el) => (
+          <li value={el.data.n}>
+            <a href={`/elements/${el.id}/`}><code>&lt;{el.data.tag}&gt;</code></a> {el.data.name}
+          </li>
+        ))}
+      </ol>
+    </main>
+  </body>
+</html>
