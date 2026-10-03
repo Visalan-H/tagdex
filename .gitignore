@@ -18,3 +18,5 @@ build/
 .vscode/
 CLAUDE.md
 AGENTS.md
+
+.vercel
