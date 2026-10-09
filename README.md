@@ -29,6 +29,7 @@ npm run dev
 ## Structure
 
 ```text
+public/              Favicon, social preview image, robots.txt
 src/
   components/
     periodic/        The table: tiles, hover preview, search, family filter, key
